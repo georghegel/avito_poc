@@ -1,4 +1,4 @@
-# We're all vulnerable, unless we work a lot. Proof of Concept
+# Fix your weaknesses and nobody can bleed you
 
 <img src="./img/eye_of_sauron.svg" alt="sauron" style="display: block; width:50%; margin-left: auto;margin-right: auto"/>
 
@@ -16,7 +16,6 @@
   - [Error Handlers](#error-handlers)
 - [Prevention](#prevention)
 - [Test](#test)
-- [Conclusion](#conclusion)
 - [References](#references)
 
 ## Introduction
@@ -157,8 +156,8 @@ print(lxml.html.tostring(cleaner.clean_html(lxml.html.parse('http://www.google.c
 
 ## Test
 
-## Conclusion
-
 ## References
 
-### 
+1. [OWASP TOP-10](https://owasp.org/www-project-top-ten/)
+2. [Injection Attacks Prevention cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html)
+3. [Secure coding](https://en.wikipedia.org/wiki/Secure_coding)
