@@ -73,7 +73,7 @@ order_id = "' OR 1=1 --" # Or order_id = "'1; DROP TABLE Orders"
 'select from "Orders" where id = {}'.format(order_id)
 ``` 
 
-For [2] is a bit tricky, because we didn't handle some arguments and error in that case too. Will be discussed below on Error Handlers part.
+For [1] is a bit tricky, because we didn't handle some arguments and error in that case too. Will be discussed below on Error Handlers part.
 
 Both of these SQL injection's could lead to any results. Most popular one - <b>data could be leaked or service will be shut down.</b><br>
 
@@ -89,7 +89,7 @@ Example attack here:
 order_info = "<script>vulnerable_payload();</script>"; # we can show it by simple alert(1);
 ```
 
-This type of vulnerability could lead to execution of arbitrary code, apparently.<br>
+This type of vulnerability could lead to execution of arbitrary code, for sure. And The Lord knows what will happen next.<br>
 
 ### Error Handlers
 
@@ -122,6 +122,7 @@ Also, [6], how can we be sure that there exists element in `[0]` index?<br>
 current_price = cursor.fetchone()[0]
 ```
 Could lead to unexpected quit and error.<br>
+Shortly, better to log almost everything that could go wrong, otherwise we can't fix/find the breach, vulnerability etc.<br>
 ## Prevention
 
 For [1] (SQLi), check ranges of quantity and price. Although, we can check for all of the arguments, if there's no such handler at all:<br>
