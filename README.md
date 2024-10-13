@@ -39,6 +39,8 @@ According to OWASP TOP 10 2021, `Injection` And `Security Logging and Monitoring
 
 ## Found Vulnerabilities and possible attacks
 
+<img src="./img/sql.jpg" alt="sauron" style="display: block; width:50%; margin-left: auto;margin-right: auto"/>
+
 ### SQLi
 First vulnerability is SQL injection is here [1]:
 ```python
