@@ -15,7 +15,6 @@
   - [HTML Injection](#htmli)
   - [Error Handlers](#error-handlers)
 - [Prevention](#prevention)
-- [Test](#test)
 - [References](#references)
 
 ## Introduction
@@ -100,7 +99,7 @@ It's not a vulnerability, but it's a good practice if errors handled and logged 
 def show_order(order_id: int, user_id: int):
     ...
     return (
-           f'<html><body><p>Error was happend for {order_id}' # first of all - happened, not happend
+           f'<html><body><p>Error was happend for {order_id}' # typo: happened, not happend
            '</p></body></html>')
 ```
 Also, [5]:
@@ -123,15 +122,6 @@ current_price = cursor.fetchone()[0]
 Could lead to unexpected quit and error.<br>
 ## Prevention
 
-Prevention for [2] (SQLi) is using parametrized query and sanitized arguments:
-```python
-def show_order(order_id: int, user_id: int):
-    try:
-    cursor = db_connection.execute(
-        'select from "Orders" where id = %s', (order_id,)
-    )
-```
-
 For [1] (SQLi), check ranges of quantity and price. Although, we can check for all of the arguments, if there's no such handler at all:<br>
 ```python
 if quantity < 0 or price < 0:
@@ -139,6 +129,15 @@ if quantity < 0 or price < 0:
 cursor = db_connection.execute(
             'insert into "Orders" values (%s, %s, %s, %s, %s)',
             (user_id, order_id, item_id, quantity, price)
+    )
+```
+
+Prevention for [2] (SQLi) is using parametrized query and sanitized arguments:
+```python
+def show_order(order_id: int, user_id: int):
+    try:
+    cursor = db_connection.execute(
+        'select from "Orders" where id = %s', (order_id,)
     )
 ```
 
@@ -151,10 +150,29 @@ cleaner = Cleaner()
 cleaner.javascript = True
 cleaner.style = True
 
-print(lxml.html.tostring(cleaner.clean_html(lxml.html.parse('http://www.google.com'))))
+parsed_order_id = int(lxml.html.tostring(cleaner.clean_html(lxml.html.parse(order_id))))
 ```
 
-## Test
+Correction for [4]:
+```python
+def show_order(order_id: int, user_id: int):
+    ...
+    except Exception as e:
+        return (
+           f'<html><body><p>Error while fecthing {order_id} in show_order()'
+           '</p></body></html>')
+```
+
+For [5] fix mentioned in [1]
+
+For [6]:
+```python
+...
+current_price = cursor.fetchone()
+if current_price:
+    current_price = current_price[0]
+...
+```
 
 ## References
 
